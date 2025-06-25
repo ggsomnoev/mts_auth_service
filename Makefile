@@ -8,7 +8,7 @@ vendor:
 
 .PHONY: test
 test:
-	ginkgo ./...	
+	ginkgo test -race ./...	
 
 .PHONY: run-docker
 run-docker:
