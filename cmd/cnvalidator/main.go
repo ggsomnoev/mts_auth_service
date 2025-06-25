@@ -1,8 +1,8 @@
 package main
 
 import (
+	"github.com/ggsomnoev/mts-auth-service/internal/cnvalidator"
 	"github.com/ggsomnoev/mts-auth-service/internal/config"
-	"github.com/ggsomnoev/mts-auth-service/internal/tlscertvalidator"
 	"github.com/ggsomnoev/mts-auth-service/internal/webapi"
 )
 
@@ -11,7 +11,7 @@ func main() {
 
 	srv := webapi.NewWebAPI()
 
-	tlscertvalidator.Process(srv, cfg.TrustedClientCNs)
+	cnvalidator.Process(srv, cfg.TrustedClientCNs)
 
 	tlsCfg := &webapi.TLSConfig{
 		CertFile: cfg.WebAPICertFile,

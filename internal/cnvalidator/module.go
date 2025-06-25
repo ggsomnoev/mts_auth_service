@@ -1,7 +1,7 @@
-package tlscertvalidator
+package cnvalidator
 
 import (
-	"github.com/ggsomnoev/mts-auth-service/internal/tlscertvalidator/handler"
+	"github.com/ggsomnoev/mts-auth-service/internal/cnvalidator/handler"
 	"github.com/labstack/echo/v4"
 )
 

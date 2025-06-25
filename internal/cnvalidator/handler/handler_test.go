@@ -11,7 +11,7 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
-	"github.com/ggsomnoev/mts-auth-service/internal/tlscertvalidator/handler"
+	"github.com/ggsomnoev/mts-auth-service/internal/cnvalidator/handler"
 )
 
 var _ = Describe("TLS Auth Handler", func() {
