@@ -6,6 +6,15 @@ tidy:
 vendor:
 	go mod vendor
 
+.PHONY: test
+test:
+	ginkgo ./...	
+
+.PHONY: run-docker
+run-docker:
+	docker compose down -v --remove-orphans 
+	docker compose up --build
+
 CERTS_DIR ?= certs
 CA_DIR := $(CERTS_DIR)/ca
 CA_UNTRUSTED_DIR := $(CERTS_DIR)/ca-untrusted

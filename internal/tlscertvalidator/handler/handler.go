@@ -1,30 +1,34 @@
 package handler
 
 import (
-	"context"
-
 	"github.com/labstack/echo/v4"
 )
 
-func RegisterHandlers(ctx context.Context, srv *echo.Echo) {
-	srv.GET("/auth", handleTLSAuthValidation(ctx))
+func RegisterHandlers(srv *echo.Echo, trustedClientCNs []string) {
+	srv.GET("/auth", handleTLSAuthValidation(trustedClientCNs))
 }
 
-func handleTLSAuthValidation(ctx context.Context) echo.HandlerFunc {
+func handleTLSAuthValidation(trustedClientCNs []string) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		if c.Request().TLS != nil && len(c.Request().TLS.PeerCertificates) > 0 {
-			clientCert := c.Request().TLS.PeerCertificates[0]
+		if c.Request().TLS == nil || len(c.Request().TLS.PeerCertificates) < 1 {
+			return c.JSON(401, map[string]string{
+				"message": "Unauthorized: no TLS client certificate provided",
+			})
+		}
 
-			if clientCert.Subject.CommonName != "authorized-client" {
+		clientCN := c.Request().TLS.PeerCertificates[0].Subject.CommonName
+		for _, trustedCN := range trustedClientCNs {
+			if clientCN == trustedCN {
 				return c.JSON(200, map[string]string{
-					"message":     "Unauthorized: invalid certificate CN",
-					"common_name": clientCert.Subject.CommonName,
+					"message":     "Authentication and authorization successful",
+					"common_name": clientCN,
 				})
 			}
 		}
 
-		return c.JSON(200, map[string]string{
-			"message": "Authentication and authorization is successful",
+		return c.JSON(403, map[string]string{
+			"message":     "Unauthorized: invalid certificate CN",
+			"common_name": clientCN,
 		})
 	}
 }

@@ -1,21 +1,17 @@
 package main
 
 import (
-	"context"
-
 	"github.com/ggsomnoev/mts-auth-service/internal/config"
 	"github.com/ggsomnoev/mts-auth-service/internal/tlscertvalidator"
 	"github.com/ggsomnoev/mts-auth-service/internal/webapi"
 )
 
 func main() {
-	appCtx := context.Background()
-
 	cfg := config.Load()
 
 	srv := webapi.NewWebAPI()
 
-	tlscertvalidator.Process(appCtx, srv)
+	tlscertvalidator.Process(srv, cfg.TrustedClientCNs)
 
 	tlsCfg := &webapi.TLSConfig{
 		CertFile: cfg.WebAPICertFile,
