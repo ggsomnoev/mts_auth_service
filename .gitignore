@@ -1,3 +1,9 @@
 /vendor
 
+/certs/ca
+/certs/ca-untrusted
+/certs/client
+/certs/client-untrusted
+/certs/server
+
 .env

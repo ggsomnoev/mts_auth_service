@@ -17,12 +17,10 @@ func main() {
 
 	tlscertvalidator.Process(appCtx, srv)
 
-	var tlsCfg *webapi.TLSConfig
-	if cfg.Env != "local" {
-		tlsCfg = &webapi.TLSConfig{
-			CertFile: cfg.WebAPICertFile,
-			KeyFile:  cfg.WebAPIKeyFile,
-		}
+	tlsCfg := &webapi.TLSConfig{
+		CertFile: cfg.WebAPICertFile,
+		KeyFile:  cfg.WebAPIKeyFile,
+		CAFile:   cfg.CACertFile,
 	}
 
 	srv.Logger.Fatal(webapi.StartServer(srv, cfg.Port, tlsCfg))

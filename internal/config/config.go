@@ -7,18 +7,18 @@ import (
 )
 
 type Config struct {
-	Env            string
 	Port           string
 	WebAPICertFile string
 	WebAPIKeyFile  string
+	CACertFile     string
 }
 
 func Load() *Config {
 	return &Config{
-		Env:            envOrDefault("API_ENV", "local"),
-		Port:           envOrDefault("API_PORT", "8080"),
-		WebAPICertFile: envOrDefault("WEB_API_CERT_FILE", "certs/tls.crt"),
-		WebAPIKeyFile:  envOrDefault("WEB_API_KEY_FILE", "certs/tls.key"),
+		Port:           envOrDefault("API_PORT", "8443"),
+		WebAPICertFile: envOrDefault("WEB_API_CERT_FILE", "certs/server/server.crt"),
+		WebAPIKeyFile:  envOrDefault("WEB_API_KEY_FILE", "certs/server/server.key"),
+		CACertFile:     envOrDefault("CA_CERT_FILE", "certs/ca/ca.crt"),
 	}
 }
 
