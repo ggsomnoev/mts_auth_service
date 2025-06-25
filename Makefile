@@ -10,6 +10,10 @@ vendor:
 test:
 	ginkgo test -race ./...	
 
+.PHONY: run
+run:
+	go run ./cmd/cnvalidator/main.go
+
 .PHONY: run-docker
 run-docker:
 	docker compose down -v --remove-orphans 
@@ -54,7 +58,7 @@ ca-untrusted:
 		-out $(CA_UNTRUSTED_DIR)/ca.crt
 
 .PHONY: client
-client: ca
+client:
 	@echo "==> Generating client certificate (CN=$(CN))"
 	rm -rf $(CLIENT_DIR)
 	mkdir -p $(CLIENT_DIR)
@@ -66,7 +70,7 @@ client: ca
 		-CAcreateserial -out $(CLIENT_DIR)/client.crt -days $(DAYS) -sha256
 
 .PHONY: client-untrusted
-client-untrusted: ca-untrusted
+client-untrusted:
 	@echo "==> Generating client cert signed by UNTRUSTED CA"
 	rm -rf $(CLIENT_UNTRUSTED_DIR)
 	mkdir -p $(CLIENT_UNTRUSTED_DIR)
@@ -78,7 +82,7 @@ client-untrusted: ca-untrusted
 		-CAcreateserial -out $(CLIENT_UNTRUSTED_DIR)/client.crt -days $(DAYS) -sha256
 
 .PHONY: server
-server: ca
+server:
 	@echo "==> Generating server certificate with SAN"
 	rm -f $(SERVER_DIR)
 	mkdir -p $(SERVER_DIR)
