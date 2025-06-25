@@ -13,7 +13,7 @@ This service exposes a secure `/auth` endpoint that performs mutual TLS (mTLS) a
 
 ## Prerequisites
 
-You must generate the necessary certificates **before running** the application (whether locally or in Docker). Use the following `make` commands to create:
+You must generate the necessary certificates **before running** the application (whether locally or in Docker). Use the following `make` command to create:
 
 ```bash
 make generate-all-certs
