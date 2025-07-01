@@ -52,7 +52,7 @@ make test
 ```bash
 make client
 
-curl -k https://localhost:8443/auth \
+curl https://localhost:8443/auth \
   --cert ./certs/client/client.crt \
   --key ./certs/client/client.key \
   --cacert ./certs/ca/ca.crt
@@ -63,7 +63,7 @@ curl -k https://localhost:8443/auth \
 ```bash
 make client CN=my-custom-cn
 
-curl -k https://localhost:8443/auth \
+curl https://localhost:8443/auth \
   --cert ./certs/client/client.crt \
   --key ./certs/client/client.key \
   --cacert ./certs/ca/ca.crt
@@ -72,7 +72,7 @@ curl -k https://localhost:8443/auth \
 ### Certificates signed by untrusted CA
 
 ```bash
-curl -k https://localhost:8443/auth \
+curl https://localhost:8443/auth \
   --cert ./certs/client-untrusted/client.crt \
   --key ./certs/client-untrusted/client.key \
   --cacert ./certs/ca-untrusted/ca.crt
@@ -81,5 +81,5 @@ curl -k https://localhost:8443/auth \
 ### No certificate
 
 ```bash
-curl -k https://localhost:8443/auth
+curl https://localhost:8443/auth
 ```

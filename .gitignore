@@ -7,3 +7,9 @@
 /certs/server
 
 .env
+
+*.p12
+*.srl
+*.key
+*.crt
+*.csr 
