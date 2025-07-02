@@ -40,8 +40,8 @@ clean-certs:
 .PHONY: ca
 ca:
 	@echo "==> Generating trusted CA"
-	rm -rf $(CA_DIR)
-	mkdir -p $(CA_DIR)
+	@rm -rf $(CA_DIR)
+	@mkdir -p $(CA_DIR)
 	openssl genrsa -out $(CA_DIR)/ca.key $(KEY_SIZE)
 	openssl req -x509 -new -nodes -key $(CA_DIR)/ca.key -sha256 -days $(DAYS) \
 		-subj "/CN=Trusted Root CA" \
@@ -50,8 +50,8 @@ ca:
 .PHONY: ca-untrusted
 ca-untrusted:
 	@echo "==> Generating untrusted CA"
-	rm -rf $(CA_UNTRUSTED_DIR)
-	mkdir -p $(CA_UNTRUSTED_DIR)
+	@rm -rf $(CA_UNTRUSTED_DIR)
+	@mkdir -p $(CA_UNTRUSTED_DIR)
 	openssl genrsa -out $(CA_UNTRUSTED_DIR)/ca.key $(KEY_SIZE)
 	openssl req -x509 -new -nodes -key $(CA_UNTRUSTED_DIR)/ca.key -sha256 -days $(DAYS) \
 		-subj "/CN=Untrusted Root CA" \
@@ -60,8 +60,8 @@ ca-untrusted:
 .PHONY: client
 client:
 	@echo "==> Generating client certificate (CN=$(CN))"
-	rm -rf $(CLIENT_DIR)
-	mkdir -p $(CLIENT_DIR)
+	@rm -rf $(CLIENT_DIR)
+	@mkdir -p $(CLIENT_DIR)
 	openssl genrsa -out $(CLIENT_DIR)/client.key $(KEY_SIZE)
 	openssl req -new -key $(CLIENT_DIR)/client.key \
 		-subj "/CN=$(CN)" \
@@ -72,8 +72,8 @@ client:
 .PHONY: client-untrusted
 client-untrusted:
 	@echo "==> Generating client cert signed by UNTRUSTED CA"
-	rm -rf $(CLIENT_UNTRUSTED_DIR)
-	mkdir -p $(CLIENT_UNTRUSTED_DIR)
+	@rm -rf $(CLIENT_UNTRUSTED_DIR)
+	@mkdir -p $(CLIENT_UNTRUSTED_DIR)
 	openssl genrsa -out $(CLIENT_UNTRUSTED_DIR)/client.key $(KEY_SIZE)
 	openssl req -new -key $(CLIENT_UNTRUSTED_DIR)/client.key \
 		-subj "/CN=authorized-client" \
@@ -84,8 +84,8 @@ client-untrusted:
 .PHONY: server
 server:
 	@echo "==> Generating server certificate with SAN"
-	rm -f $(SERVER_DIR)
-	mkdir -p $(SERVER_DIR)
+	@rm -f $(SERVER_DIR)
+	@mkdir -p $(SERVER_DIR)
 	openssl genrsa -out $(SERVER_DIR)/server.key $(KEY_SIZE)
 	openssl req -new -key $(SERVER_DIR)/server.key \
 		-config $(CERTS_DIR)/openssl.cnf \
